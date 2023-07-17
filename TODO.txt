@@ -1,0 +1,6 @@
+- shuffle clients  before eacj iteration
+- optionally select subset of clients
+- call clients in separate threads
+- pre-train server model on a subset of the dataset
+- Extract validation set
+- Distribute trainig set randomly among clients and server

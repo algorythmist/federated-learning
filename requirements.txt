@@ -1,0 +1,10 @@
+# ML
+scikit-learn
+tensorflow
+# test
+pytest
+# graphics
+matplotlib
+#notebooks
+jupyter
+ipykernel
