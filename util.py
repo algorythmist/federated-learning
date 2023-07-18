@@ -1,5 +1,6 @@
 import keras
 import numpy as np
+
 from federated import ClientNode
 
 
@@ -21,26 +22,31 @@ def build_and_compile_simple_model():
     return model
 
 
+def shuffle_together(*arrays, seed=None):
+    """
+    Shuffle arrays in unison
+    :param arrays: a tuple or list of arrays. They must all have the same length
+    :return: a tuple of the shuffled arrays
+    """
+    if seed is not None:
+        np.random.seed(seed)
+    if len(arrays) == 0:
+        return []
+    p = np.random.permutation(len(arrays[0]))
+    return (a[p] for a in arrays)
 
 
-
-def create_clients(images, labels, num_clients=10, initial='client'):
-    def shuffle_together(a, b):
-        p = np.random.permutation(len(a))
-        return a[p], b[p]
-
-    # create a list of client names
-    client_names = ['{}_{}'.format(initial, i + 1) for i in range(num_clients)]
-
+def split_data(images, labels, shards):
     # randomize the data
     images, labels = shuffle_together(images, labels)
+    # determine the size of each shard
+    size = len(labels) // shards
+    return [(images[i:i + size], labels[i:i + size]) for i in range(0, size * shards, size)]
 
-    # shard data and place at each client
-    size = len(labels) // num_clients
-    shards = [(images[i:i + size], labels[i:i + size]) for i in range(0, size * num_clients, size)]
 
-    # number of clients must equal number of shards
-    assert (len(shards) == len(client_names))
-
-    return [ClientNode(client_names[i], build_and_compile_simple_model(), shards[i])
+def create_clients(shards, initial='client', create_model_fn=build_and_compile_simple_model):
+    num_clients = len(shards)
+    # create a list of client names
+    client_names = ['{}_{}'.format(initial, i + 1) for i in range(num_clients)]
+    return [ClientNode(client_names[i], create_model_fn(), shards[i])
             for i in range(len(client_names))]

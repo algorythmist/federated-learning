@@ -29,3 +29,6 @@ def test_server():
     server = CentralServer(build_and_compile_simple_model(), [client1, client2])
     local_weights = server.training_step()
     assert len(local_weights) == 2
+
+
+

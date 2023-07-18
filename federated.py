@@ -21,7 +21,7 @@ class ClientNode:
         """
         # TODO: train mini batches
         self.model.set_weights(weights)
-        self.model.fit(self.train_X, self.train_y, epochs=epochs)
+        self.model.fit(self.train_X, self.train_y, epochs=epochs, verbose=0)
         return len(self.train_y), self.model.get_weights()
 
 
@@ -30,9 +30,10 @@ class CentralServer:
     The central server coordinates training by aggregating model weights from clients.
     """
 
-    def __init__(self, model, clients):
+    def __init__(self, model, clients, client_epochs=5):
         self.model = model
         self.clients = clients
+        self.client_epochs = client_epochs
 
     def train(self, iterations=10, evaluate_fn=None):
         """
@@ -58,7 +59,8 @@ class CentralServer:
     def __scale_model_weights(scalar, weights):
         return [scalar * w for w in weights]
 
-    def __aggregate_scaled_weights(self, scaled_weights):
+    @staticmethod
+    def __aggregate_scaled_weights(scaled_weights):
         """
         Return the sum of the listed scaled weights.
         The is equivalent to scaled average of the weights
@@ -76,5 +78,5 @@ class CentralServer:
         # TODO: shuffle clients
         for client in self.clients:
             print(f"Fitting local model for client {client.name}")
-            local_weights[client.name] = client.train(global_weights, epochs=1)
+            local_weights[client.name] = client.train(global_weights, epochs=self.client_epochs)
         return local_weights
