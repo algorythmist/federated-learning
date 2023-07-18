@@ -31,6 +31,11 @@ class CentralServer:
     """
 
     def __init__(self, model, clients, client_epochs=5):
+        """
+        :param model: The model maintained by the server
+        :param clients: An array of ClientNode objects
+        :param client_epochs: the number of epochs to train on each client
+        """
         self.model = model
         self.clients = clients
         self.client_epochs = client_epochs
@@ -43,6 +48,7 @@ class CentralServer:
         :return:
         """
         for iteration in range(iterations):
+            print(f"Server iteration {iteration}")
             local_weights = self.training_step()
             scaled_weights = self.__scale_weights(local_weights.values())
             average_weights = self.__aggregate_scaled_weights(scaled_weights)

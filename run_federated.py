@@ -7,8 +7,8 @@ if __name__ == '__main__':
     (X_train, y_train), (X_test, y_test) = dataset.load_data()
 
     # split the training data between the server and the clients
-    n_clients = 5
-    shards = split_data(X_train, y_train, n_clients + 1)
+    num_clients = 5
+    shards = split_data(X_train, y_train, num_clients + 1)
     server_X, server_y = shards[0]
     clients = create_clients(shards=shards[1:], create_model_fn=build_and_compile_simple_model)
 
