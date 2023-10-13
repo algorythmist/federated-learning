@@ -1,9 +1,13 @@
 # ML
 scikit-learn
 tensorflow
+torch
+torchvision
+flwr
 # test
 pytest
-# graphics
+# other
+tqdm
 matplotlib
 #notebooks
 jupyter

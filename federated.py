@@ -81,7 +81,6 @@ class CentralServer:
     def training_step(self):
         global_weights = self.model.get_weights()
         local_weights = {}
-        # TODO: shuffle clients
         for client in self.clients:
             print(f"Fitting local model for client {client.name}")
             local_weights[client.name] = client.train(global_weights, epochs=self.client_epochs)
