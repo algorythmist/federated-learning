@@ -2,11 +2,27 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class SimpleNet(nn.Module):
-    """Model (simple CNN adapted from 'PyTorch: A 60 Minute Blitz')"""
+
+class SimpleMLP(nn.Module):
+    def __init__(self, input_size, hidden_size, num_classes):
+        super().__init__()
+        self.inout_size = input_size
+        self.l1 = nn.Linear(input_size, hidden_size)
+        self.relu = nn.ReLU()
+        self.l2 = nn.Linear(hidden_size, num_classes)
+
+    def forward(self, x):
+        out = self.l1(x)
+        out = self.relu(out)
+        out = self.l2(out)
+        out = torch.sigmoid(out)
+        return out
+
+
+class SimpleCNN(nn.Module):
 
     def __init__(self) -> None:
-        super(SimpleNet, self).__init__()
+        super(SimpleCNN, self).__init__()
         self.conv1 = nn.Conv2d(3, 6, 5)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 5)

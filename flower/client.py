@@ -3,7 +3,7 @@ from collections import OrderedDict
 import flwr as fl
 import torch
 from tqdm import tqdm
-from model import SimpleNet
+from model import SimpleCNN
 from cifar_data import load_data
 
 # Define Flower client
@@ -57,7 +57,7 @@ class FlowerClient(fl.client.NumPyClient):
 if __name__ == '__main__':
     warnings.filterwarnings("ignore", category=UserWarning)
     DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    net = SimpleNet().to(DEVICE)
+    net = SimpleCNN().to(DEVICE)
     trainloader, testloader = load_data()
 
     # Start Flower client
