@@ -1,7 +1,7 @@
 import keras
 import numpy as np
 
-from federated import ClientNode
+from client import ClientNode
 
 
 def build_simple_model():

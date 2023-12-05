@@ -1,5 +1,6 @@
 from keras.datasets import fashion_mnist
-from federated import ClientNode, CentralServer
+from client import ClientNode
+from server import CentralServer
 from util import build_and_compile_simple_model
 
 # load dataset

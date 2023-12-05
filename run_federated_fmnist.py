@@ -1,5 +1,5 @@
 from util import *
-from federated import CentralServer
+from server import CentralServer
 
 if __name__ == '__main__':
     dataset = keras.datasets.fashion_mnist
