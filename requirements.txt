@@ -3,7 +3,9 @@ scikit-learn
 tensorflow
 torch
 torchvision
+# federated
 flwr
+substrafl
 # test
 pytest
 # other
