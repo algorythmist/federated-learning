@@ -1,5 +1,5 @@
-from util import *
-from server import CentralServer
+from simplefql.util import *
+from simplefql.server import FederatedServer
 
 if __name__ == '__main__':
     dataset = keras.datasets.fashion_mnist
@@ -21,7 +21,7 @@ if __name__ == '__main__':
     # pre-train server model to obtain initial weights
     server_model.fit(server_X, server_y, epochs=10)
 
-    server = CentralServer(server_model, clients, client_epochs=3)
+    server = FederatedServer(server_model, clients, client_epochs=3)
     server.train(20, evaluate_fn=lambda model: model.evaluate(X_test, y_test) )
     loss, accuracy = server_model.evaluate(X_valid, y_valid)
     print(f" accuracy: {accuracy} | loss: {loss}")

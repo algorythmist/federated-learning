@@ -1,3 +1,4 @@
 # federated-learning
 
-Bare bones Federated Learning POC
+Exploration of Federated Learning frameworks 
+

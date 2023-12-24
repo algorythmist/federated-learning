@@ -1,4 +1,4 @@
-class ClientNode:
+class FederatedClient:
     """
     A client node performs training using a copy of the shared model on its own datasets.
     The weights are reset by the server at the beginning of each round.

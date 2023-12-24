@@ -1,6 +1,6 @@
 import numpy as np
 
-from util import shuffle_together
+from simplefql.util import shuffle_together
 
 
 def test_shuffle_together():

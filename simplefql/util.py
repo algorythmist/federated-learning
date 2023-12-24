@@ -1,7 +1,7 @@
 import keras
 import numpy as np
 
-from client import ClientNode
+from simplefql.client import FederatedClient
 
 
 def build_simple_model():
@@ -48,5 +48,5 @@ def create_clients(shards, initial='client', create_model_fn=build_and_compile_s
     num_clients = len(shards)
     # create a list of client names
     client_names = ['{}_{}'.format(initial, i + 1) for i in range(num_clients)]
-    return [ClientNode(client_names[i], create_model_fn(), shards[i])
+    return [FederatedClient(client_names[i], create_model_fn(), shards[i])
             for i in range(len(client_names))]

@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 
-class CentralServer:
+class FederatedServer:
     """
     The central server coordinates training by aggregating model weights from clients.
     """
